@@ -1,0 +1,22 @@
+import React from 'react';
+import "components/InterviewerList.scss";
+import InterviewerListItem from './InterviewerListItem.js'
+
+export default function InterviewerList ({interviewers, value, onChange}) {
+  return (
+    <section className="interviewers">
+      <h4 className="interviewers__header text--light">Interviewer</h4>
+      <ul className="interviewers__list">
+        {interviewers.map(int=>{
+          return (<InterviewerListItem 
+          key={int.id}
+          name={int.name}
+          avatar={int.avatar}
+          selected={int.id === value}
+          onChange={(event)=>{onChange(int.id)}}
+          />)
+        })}
+      </ul>
+    </section>
+  )
+};
