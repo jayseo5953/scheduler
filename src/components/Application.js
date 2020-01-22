@@ -4,82 +4,65 @@ import DayList from "./DayList";
 import "./Appointment"
 import Appointment from "./Appointment/index.js"
 import axios from "axios";
+import { getAppointmentsForDay } from "../helpers/selectors.js";
 
-// const days = [
-//   {
-//     id: 1,
-//     name: "Monday",
-//     spots: 2,
-//   },
-//   {
-//     id: 2,
-//     name: "Tuesday",
-//     spots: 5,
-//   },
-//   {
-//     id: 3,
-//     name: "Wednesday",
-//     spots: 0,
-//   },
-// ];
+import { getInterview } from "../helpers/selectors.js";
 
-const appointments = [
-  {
-    id: 1,
-    time: "12pm",
-  },
-  {
-    id: 2,
-    time: "1pm",
-    interview: {
-      student: "Lydia Miller-Jones",
-      interviewer: {
-        id: 1,
-        name: "Sylvia Palmer",
-        avatar: "https://i.imgur.com/LpaY82x.png",
-      }
-    }
-  },
-  {
-    id: 3,
-    time: "2pm",
-  },
-  {
-    id: 4,
-    time: "3pm",
-    interview: {
-      student: "Aurther Fleck",
-      interviewer: {
-        id: 1,
-        name: "Sylvia Palmer",
-        avatar: "https://i.imgur.com/LpaY82x.png",
-      }
-    }
-  },
-  {
-    id: 5,
-    time: "4pm",
-    interview: {
-      student: "Bruce Wayne",
-      interviewer: {
-        id: 1,
-        name: "Sylvia Palmer",
-        avatar: "https://i.imgur.com/LpaY82x.png",
-      }
-    }
-  }
-];
+
 
 export default function Application(props) {
 
 
-  const [ day, setDay ] = useState("Monday")
-  const [ days, setDays ] = useState([]) 
+  // const [ day, setDay ] = useState("Monday")
+  // const [ days, setDays ] = useState([]);
+  // const [ appointments, setAppointments ] = useState({}) 
+
+  const [ state, setState ] = useState({
+    day: "Monday",
+    days: [],
+    appointments: {},
+    interviewers: {}
+  }) 
+
+  const setDay = day => setState({ ...state, day });
 
   useEffect(()=>{
-    axios.get('/api/days')
-    .then(res => setDays(res.data))
+    const days = axios.get('/api/days');
+    const apps = axios.get('/api/appointments');
+    const ints = axios.get('/api/interviewers');
+
+
+    Promise.all([
+      Promise.resolve(days),
+      Promise.resolve(apps),
+      Promise.resolve(ints)
+    ])
+    .then((all)=>{
+      setState(prev => ({ 
+        ...prev, 
+        days: all[0].data, 
+        appointments: all[1].data,
+        interviewers: all[2].data
+      }))
+    })
   })
+
+
+  const appointments = getAppointmentsForDay(state, state.day);
+
+//   const schedule = appointments.map((appointment) => {
+//   const interview = getInterview(state, appointment.interview);
+
+//   return (
+//     <Appointment
+//       key={appointment.id}
+//       id={appointment.id}
+//       time={appointment.time}
+//       interview={interview}
+//     />
+//   );
+// });
+
   return (
     <main className="layout">
       <section className="sidebar">
@@ -90,7 +73,7 @@ export default function Application(props) {
       />
       <hr className="sidebar__separator sidebar--centered" />
       <nav className="sidebar__menu">
-        <DayList days={days} day={day} 
+        <DayList days={state.days} day={state.day} 
         setDay={setDay} />
       </nav>
       <img
@@ -101,9 +84,21 @@ export default function Application(props) {
       </section>
       <section className="schedule">
         {
-          appointments.map((app)=>{
+          // appointments.map((app)=>{
+          //   return (
+          //     <Appointment key={app.id} {...app} />
+          //   );
+          // })
+          appointments.map((appointment) => {
+            const interview = getInterview(state, appointment.interview);
+          
             return (
-              <Appointment key={app.id} {...app} />
+              <Appointment
+                key={appointment.id}
+                id={appointment.id}
+                time={appointment.time}
+                interview={interview}
+              />
             );
           })
         }
@@ -112,3 +107,6 @@ export default function Application(props) {
     </main>
   );
 }
+
+
+// if i refresh fast, it returns proxy error
