@@ -1,67 +1,80 @@
-import React, {useState, useEffect} from "react";
+import React from "react";
 import "components/Application.scss";
 import DayList from "./DayList";
 import "./Appointment"
 import Appointment from "./Appointment/index.js"
-import axios from "axios";
 import { getAppointmentsForDay } from "../helpers/selectors.js";
-
 import { getInterview } from "../helpers/selectors.js";
+import { getInterviewersForDay } from "../helpers/selectors.js";
+import useApplicationData from "../hooks/useApplicationData.js"
 
 
 
 export default function Application(props) {
+  // const [ state, setState ] = useState({
+  //   day: "Monday",
+  //   days: [],
+  //   appointments: {},
+  //   interviewers: {}
+  // }) 
 
+  // const setDay = day => setState({ ...state, day });
 
-  // const [ day, setDay ] = useState("Monday")
-  // const [ days, setDays ] = useState([]);
-  // const [ appointments, setAppointments ] = useState({}) 
+  // useEffect(()=>{
+  //   const days = axios.get('/api/days');
+  //   const apps = axios.get('/api/appointments');
+  //   const ints = axios.get('/api/interviewers');
 
-  const [ state, setState ] = useState({
-    day: "Monday",
-    days: [],
-    appointments: {},
-    interviewers: {}
-  }) 
+  //   Promise.all([
+  //     Promise.resolve(days),
+  //     Promise.resolve(apps),
+  //     Promise.resolve(ints)
+  //   ])
+  //   .then((all)=>{
+  //     setState(prev => ({ 
+  //       ...prev, 
+  //       days: all[0].data, 
+  //       appointments: all[1].data,
+  //       interviewers: all[2].data
+  //     }))
+  //   })
+  // },[])
 
-  const setDay = day => setState({ ...state, day });
+  // function bookInterview(id, interview) {
 
-  useEffect(()=>{
-    const days = axios.get('/api/days');
-    const apps = axios.get('/api/appointments');
-    const ints = axios.get('/api/interviewers');
+  //   const appointment = { ...state.appointments[id], interview:{ ...interview } }
+  //   const appointments = { ...state.appointments, [id]: appointment }
 
+   
+  //   return axios.put(`/api/appointments/${id}`,{ interview })
+  //   .then((res)=>{
+   
+  //     setState({...state, appointments})
+  //   })
 
-    Promise.all([
-      Promise.resolve(days),
-      Promise.resolve(apps),
-      Promise.resolve(ints)
-    ])
-    .then((all)=>{
-      setState(prev => ({ 
-        ...prev, 
-        days: all[0].data, 
-        appointments: all[1].data,
-        interviewers: all[2].data
-      }))
-    })
-  })
+  // }
+ 
+  // function cancelInterview (id) {
+  //   const appointment = { ...state.appointments[id], interview: null}
+  //   const appointments = { ...state.appointments, [id]: appointment}
 
+  //   return axios.delete(`/api/appointments/${id}`)
+  //     .then((res)=>{
+     
+  //       setState({...state, appointments})
+  //     })
+     
+  // }
+
+  const {
+    state,
+    setDay,
+    bookInterview,
+    cancelInterview
+  } = useApplicationData();
 
   const appointments = getAppointmentsForDay(state, state.day);
-
-//   const schedule = appointments.map((appointment) => {
-//   const interview = getInterview(state, appointment.interview);
-
-//   return (
-//     <Appointment
-//       key={appointment.id}
-//       id={appointment.id}
-//       time={appointment.time}
-//       interview={interview}
-//     />
-//   );
-// });
+  const interviewers = getInterviewersForDay(state, state.day);
 
   return (
     <main className="layout">
@@ -84,20 +97,18 @@ export default function Application(props) {
       </section>
       <section className="schedule">
         {
-          // appointments.map((app)=>{
-          //   return (
-          //     <Appointment key={app.id} {...app} />
-          //   );
-          // })
           appointments.map((appointment) => {
             const interview = getInterview(state, appointment.interview);
-          
+            
             return (
               <Appointment
                 key={appointment.id}
                 id={appointment.id}
                 time={appointment.time}
                 interview={interview}
+                interviewers={interviewers}
+                bookInterview={bookInterview}
+                cancelInterview={cancelInterview}
               />
             );
           })
@@ -108,5 +119,3 @@ export default function Application(props) {
   );
 }
 
-
-// if i refresh fast, it returns proxy error
