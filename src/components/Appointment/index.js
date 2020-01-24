@@ -20,6 +20,7 @@ const CONFIRM = 'CONFIRM';
 const EDIT = 'EDIT';
 const ERROR_SAVE = 'ERROR_SAVE';
 const ERROR_DELETE='ERROR_DELETE';
+let errMsg="";
 
 
 export default function Appointment (props) {
@@ -31,17 +32,21 @@ export default function Appointment (props) {
       student: name,
       interviewer
     };
-
-    transition(SAVING)
     
-    props.bookInterview(props.id, interview)
+    transition('SAVING')
+  
+    props.bookInterview(props.id, interview, transition)
       .then(res=>{
         console.log("booked an interview ")
+    
         transition(SHOW)
       })
       .catch(err=> {
+       
+        console.log(typeof err)
+        errMsg += `${err}`;
         transition(ERROR_SAVE, true)
-        console.log("came to catch",err)
+        errMsg = ""
       });
   }
   
@@ -58,14 +63,13 @@ export default function Appointment (props) {
       })
       .catch(err => {
 
+        errMsg += `${err}`;
         transition(ERROR_DELETE, true)
         console.log("came to catch",err)
+        errMsg = ""
       })
   }
 
-  // useEffect(()=>{console.log(mode)},[mode])
-
-  
   return (
     <article className="appointment">
       <Header time={props.time} />
@@ -83,7 +87,7 @@ export default function Appointment (props) {
       {mode === EDIT && <Form name={props.interview.student} value={props.interview.interviewer ? props.interview.interviewer.id:null} interviewers={props.interviewers} onCancel={back} onSave={save}
       />}
       {(mode === SAVING || mode === DELETING) && <Status message={mode} />}
-      {(mode === ERROR_SAVE || mode === ERROR_DELETE) && <Error message={ mode + " Could not complete your request."} onClose={back} />}
+      {(mode === ERROR_SAVE || mode === ERROR_DELETE) && <Error message={errMsg} onClose={back} />}
       {mode === CONFIRM && <Confirm message={'Are you sure you would like to DELETE?'} onCancel={back} onConfirm={remove} /> }
     </article>
   )
