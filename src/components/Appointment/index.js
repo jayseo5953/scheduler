@@ -20,7 +20,7 @@ const CONFIRM = 'CONFIRM';
 const EDIT = 'EDIT';
 const ERROR_SAVE = 'ERROR_SAVE';
 const ERROR_DELETE='ERROR_DELETE';
-let errMsg="";
+// let errMsg="";
 
 
 export default function Appointment (props) {
@@ -44,9 +44,9 @@ export default function Appointment (props) {
       .catch(err=> {
        
         console.log(typeof err)
-        errMsg += `${err}`;
+        // errMsg += `${err}`;
         transition(ERROR_SAVE, true)
-        errMsg = ""
+        // errMsg = ""
       });
   }
   
@@ -63,10 +63,10 @@ export default function Appointment (props) {
       })
       .catch(err => {
 
-        errMsg += `${err}`;
+        // errMsg += `${err}`;
         transition(ERROR_DELETE, true)
         console.log("came to catch",err)
-        errMsg = ""
+        // errMsg = ""
       })
   }
 
@@ -97,7 +97,7 @@ export default function Appointment (props) {
       {mode === EDIT && <Form name={props.interview.student} value={props.interview.interviewer ? props.interview.interviewer.id:null} interviewers={props.interviewers} onCancel={back} onSave={save}
       />}
       {(mode === SAVING || mode === DELETING) && <Status message={mode} />}
-      {(mode === ERROR_SAVE || mode === ERROR_DELETE) && <Error message={errMsg} onClose={back} />}
+      {(mode === ERROR_SAVE || mode === ERROR_DELETE) && <Error message={"Could not finish your request"} onClose={back} />}
       {mode === CONFIRM && <Confirm message={'Are you sure you would like to DELETE?'} onCancel={back} onConfirm={remove} /> }
     </article>
   )

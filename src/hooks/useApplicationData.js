@@ -63,15 +63,15 @@ export default function useApplicationData () {
 
   function bookInterview(id, interview) {
   
-    if (!interview.student || !interview.interviewer)
-    {
-      return Promise.reject('Require input missing. Please fill out your name and select an interviewer!')
-    } else {
+    // if (!interview.student || !interview.interviewer)
+    // {
+    //   return Promise.reject('Require input missing. Please fill out your name and select an interviewer!')
+    // } else {
       return axios.put(`/api/appointments/${id}`,{ interview })
       .then((res)=>{
         dispatch({type: SET_INTERVIEW, id, interview})
       })
-    }
+    // }
   }
 
   function cancelInterview (id) {
