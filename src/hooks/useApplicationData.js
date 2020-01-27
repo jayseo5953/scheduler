@@ -2,7 +2,6 @@ import React, { useEffect, useReducer} from "react";
 import axios from "axios";
 import { getAppointmentsForDay } from "../helpers/selectors.js"
 
-
 const SET_DAY = 'SET_DAY';
 const SET_APP_DATA = 'SET_APP_DATA';
 const SET_INTERVIEW = 'SET_INTERVIEW';
@@ -62,7 +61,7 @@ export default function useApplicationData () {
   };
 
 
-  function bookInterview(id, interview, transition) {
+  function bookInterview(id, interview) {
   
     if (!interview.student || !interview.interviewer)
     {
@@ -101,6 +100,32 @@ export default function useApplicationData () {
       dispatch({type: SET_APP_DATA, days, appointments, interviewers})
     })
   },[])
+
+   
+   useEffect(()=>{
+    const url = process.env.REACT_APP_WEBSOCKET_URL;
+    const ws = new WebSocket(url)
+    
+    // ws.onopen = () => {
+    //   console.log("opened");
+    //   ws.send('ping')
+    // };
+    
+    ws.onmessage = (e) => {
+      const content = JSON.parse(e.data)
+      const {type, id, interview} = content;
+      console.log("Message received:",content)
+      if (type === 'SET_INTERVIEW') {
+        console.log("did dispatch")
+        dispatch(content)
+        if (interview) {
+        
+        }
+      }
+    }
+      return () => ws.close()
+    },[])
+    
 
   return { 
     state,
