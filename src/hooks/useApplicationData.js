@@ -47,10 +47,8 @@ function reducer(state, action) {
         //   }
         // });
       }
-      
-      return {...newState, days:newDays};
 
-      // return  {...newState, days}
+      return {...newState, days:newDays};
       
       default :
         throw new Error (
@@ -74,15 +72,10 @@ export default function useApplicationData () {
 
   function bookInterview(id, interview) {
   
-    // if (!interview.student || !interview.interviewer)
-    // {
-    //   return Promise.reject('Require input missing. Please fill out your name and select an interviewer!')
-    // } else {
       return axios.put(`/api/appointments/${id}`,{ interview })
       .then((res)=>{
         dispatch({type: SET_INTERVIEW, id, interview})
       })
-    // }
   }
 
   function cancelInterview (id) {
@@ -107,7 +100,6 @@ export default function useApplicationData () {
       const days= all[0].data;
       const appointments= all[1].data;
       const interviewers= all[2].data;
-     
       dispatch({type: SET_APP_DATA, days, appointments, interviewers})
     })
   },[])

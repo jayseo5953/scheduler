@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 import InterviewerList from '../InterviewerList.js';
 import Button from '../Button.js';
-import { validate } from '@babel/types';
 
 export default function Form (props) {
   
@@ -44,10 +43,15 @@ export default function Form (props) {
             type="text"
             placeholder="Enter Student Name"
             value={name}
-            onChange={(event)=>setName(event.target.value)}
+            onChange={(event)=>{
+              setName(event.target.value);
+              if (event.target.value){
+                setError("");
+              }
+            }}
           />
         </form>
-        <section className="appointment__validation">{error}</section>
+        {error && <section className="appointment__validation">{error}</section> } 
         <InterviewerList interviewers={props.interviewers} value={interviewer} onChange={setInterviewer} />
       </section>
       <section className="appointment__card-right">

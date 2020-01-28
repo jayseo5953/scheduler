@@ -74,7 +74,7 @@ export default function Appointment (props) {
     if ( props.interview && mode === EMPTY) {
       transition(SHOW)
     } 
-    
+
     if (!props.interview && mode === SHOW ) {
       transition(EMPTY)
     }
@@ -83,7 +83,7 @@ export default function Appointment (props) {
 
 
   return (
-    <article className="appointment">
+    <article data-testid="appointment" className="appointment">
       <Header time={props.time} />
       {mode === EMPTY && <Empty onAdd={()=>transition(CREATE)} />}
       {mode === SHOW && props.interview && (
