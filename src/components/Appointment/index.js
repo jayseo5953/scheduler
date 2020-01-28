@@ -71,7 +71,7 @@ export default function Appointment (props) {
   }
 
   useEffect(()=> {
-    if ( props.interview && mode === EMPTY) {
+    if (props.interview && mode === EMPTY) {
       transition(SHOW)
     } 
 
@@ -99,7 +99,7 @@ export default function Appointment (props) {
       {mode === EDIT && <Form name={props.interview.student} value={props.interview.interviewer ? props.interview.interviewer.id:null} interviewers={props.interviewers} onCancel={back} onSave={save}
       />}
       {(mode === SAVING || mode === DELETING) && <Status message={mode} />}
-      {(mode === ERROR_SAVE || mode === ERROR_DELETE) && <Error message={"Could not finish your request"} onClose={back} />}
+      {(mode === ERROR_SAVE || mode === ERROR_DELETE) && <Error message={mode} onClose={back} />}
       {mode === CONFIRM && <Confirm message={'Are you sure you would like to DELETE?'} onCancel={back} onConfirm={remove} /> }
     </article>
   )

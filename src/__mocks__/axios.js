@@ -81,27 +81,22 @@ export default {
   }),
 
 // Mocking put request
-
   put: jest.fn((url, id) => {
-    if(url === '/api/days'){
       return Promise.resolve({
         status: 204,
         statusText: "No Content"
-      });
-    }
-    if(url === `/api/appointments/1`) {
-      return Promise.resolve({
-        status: 204,
-        statusText: "No Content"
-      })
-    }
-
-    if(url === '/api/interviewers') {
-      return Promise.resolve({
-        status: 204,
-        statusText: "No Content"
-      })
-    }
   })
+}),
+
+  //Mocking delete request
+
+  delete: jest.fn((url, id) => {
+
+      return Promise.resolve({
+        status: 204,
+        statusText: "No Content"
+  
+  })
+})
 
 }
