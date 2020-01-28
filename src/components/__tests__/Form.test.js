@@ -46,6 +46,7 @@ describe("Tests for Appointment components", () =>{
 
     expect(getByText(/student name cannot be blank/i)).toBeInTheDocument();
     expect(onSave).not.toHaveBeenCalled();
+    
   });
 
   it("calls onSave function when the name is defined", () => {

@@ -23,23 +23,34 @@ function reducer(state, action) {
       const appointments = {...state.appointments, [action.id]: appointment}
     
       // take the updated state and copy
-      const newState = { ...state, appointments}
+      let newState = { ...state, appointments}
 
       // see how many slots are null
-      const slotsForDay = getAppointmentsForDay(newState,newState.day);
-      const slotsNull = slotsForDay.filter((app)=>{
+
+      //found a bug where different days' remaining seats are not updating
+      let newDays = [...newState.days]
+      for (let day of newDays) {
+
+        const slotsForDay = getAppointmentsForDay(newState, day.name);
+        const slotsNull = slotsForDay.filter((app)=>{
         return !app.interview
-      })
-      const newSpots = slotsNull.length;
-    
-      const days = state.days.map((d) =>{
-        if (d.name === state.day) {
-         return  { ...d, spots: newSpots }
-        } else {
-          return d;
-        }
-      });
-      return  {...newState, days}
+        
+        })
+        const newSpots = slotsNull.length;
+
+        day.spots = newSpots;
+        // const days = state.days.map((d) =>{
+        //   if (d.name === state.day) {
+        //    return  { ...d, spots: newSpots }
+        //   } else {
+        //     return d;
+        //   }
+        // });
+      }
+      
+      return {...newState, days:newDays};
+
+      // return  {...newState, days}
       
       default :
         throw new Error (

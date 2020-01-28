@@ -73,7 +73,9 @@ export default function Appointment (props) {
   useEffect(()=> {
     if ( props.interview && mode === EMPTY) {
       transition(SHOW)
-    } else if (!props.interview && mode === SHOW ) {
+    } 
+    
+    if (!props.interview && mode === SHOW ) {
       transition(EMPTY)
     }
   }, [props.interview, mode, transition])
