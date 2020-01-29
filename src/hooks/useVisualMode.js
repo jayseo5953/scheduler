@@ -30,9 +30,7 @@ export default function useVisualMode (initMode) {
        newHis.pop();
        return newHis;
      })
-     
     }
-  
   }
 
   return {

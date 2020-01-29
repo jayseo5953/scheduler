@@ -20,7 +20,6 @@ const CONFIRM = 'CONFIRM';
 const EDIT = 'EDIT';
 const ERROR_SAVE = 'ERROR_SAVE';
 const ERROR_DELETE='ERROR_DELETE';
-// let errMsg="";
 
 
 export default function Appointment (props) {
@@ -42,11 +41,8 @@ export default function Appointment (props) {
         transition(SHOW)
       })
       .catch(err=> {
-       
         console.log(typeof err)
-        // errMsg += `${err}`;
         transition(ERROR_SAVE, true)
-        // errMsg = ""
       });
   }
   
@@ -62,11 +58,8 @@ export default function Appointment (props) {
         transition(EMPTY)
       })
       .catch(err => {
-
-        // errMsg += `${err}`;
         transition(ERROR_DELETE, true)
         console.log("came to catch",err)
-        // errMsg = ""
       })
   }
 

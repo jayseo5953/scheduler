@@ -8,7 +8,7 @@ export default function reducer(state, action) {
 
   switch (action.type) {
     case 'SET_APP_DATA' :
-      // return { ...state, ...action.appointments}
+      
       return { ...state, days: action.days, appointments: action.appointments, interviewers: action.interviewers }
 
     case 'SET_DAY' :
@@ -36,13 +36,6 @@ export default function reducer(state, action) {
         const newSpots = slotsNull.length;
 
         day.spots = newSpots;
-        // const days = state.days.map((d) =>{
-        //   if (d.name === state.day) {
-        //    return  { ...d, spots: newSpots }
-        //   } else {
-        //     return d;
-        //   }
-        // });
       }
 
       return {...newState, days:newDays};

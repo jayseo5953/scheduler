@@ -54,12 +54,7 @@ export default function useApplicationData () {
    useEffect(()=>{
     const url = process.env.REACT_APP_WEBSOCKET_URL;
     const ws = new WebSocket(url)
-    
-    // ws.onopen = () => {
-    //   console.log("opened");
-    //   ws.send('ping')
-    // };
-    
+ 
     ws.onmessage = (e) => {
       const content = JSON.parse(e.data)
       const {type, id, interview} = content;
