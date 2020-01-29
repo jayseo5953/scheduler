@@ -20,7 +20,8 @@ export default function useApplicationData () {
   
       return axios.put(`/api/appointments/${id}`,{ interview })
       .then((res)=>{
-        dispatch({type: SET_INTERVIEW, id, interview})
+        const action ={type: SET_INTERVIEW, id, interview}
+        dispatch(action)
       })
   }
 

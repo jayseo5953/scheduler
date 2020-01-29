@@ -24,7 +24,6 @@ export default function reducer(state, action) {
 
       // see how many slots are null
 
-      //found a bug where different days' remaining seats are not updating
       let newDays = [...newState.days]
       for (let day of newDays) {
 
