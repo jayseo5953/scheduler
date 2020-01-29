@@ -63,9 +63,6 @@ export default function useApplicationData () {
       if (type === 'SET_INTERVIEW') {
         console.log("did dispatch")
         dispatch(content)
-        if (interview) {
-        
-        }
       }
     }
       return () => ws.close()
