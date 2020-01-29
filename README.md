@@ -35,22 +35,22 @@ npm run storybook
 ## Screenshots of different views
 
 Overview of the page
-!["Overview of the page"](https://github.com/sjs5953/tweeter/blob/master/docs/Desktop:tablet%20mode.png?raw=true)
+!["Overview of the page"](https://github.com/sjs5953/scheduler/blob/master/docs/Main%20Page.png?raw=true)
 
 Opening a form
-!["Opening a form"](https://github.com/sjs5953/tweeter/blob/master/docs/Smartphone%20mode.png?raw=true)
+!["Opening a form"](https://github.com/sjs5953/scheduler/blob/master/docs/Form.png?raw=true)
 
 Saving status
-!["Saving status"](https://github.com/sjs5953/tweeter/blob/master/docs/Smartphone%20mode.png?raw=true)
+!["Saving status"](https://github.com/sjs5953/scheduler/blob/master/docs/Saving%20Status.png?raw=true)
 
 Asks to confirm before deleting
-!["Asks to confirm before deleting"](https://github.com/sjs5953/tweeter/blob/master/docs/error%20message.png?raw=true)
+!["Asks to confirm before deleting"](https://github.com/sjs5953/scheduler/blob/master/docs/Confirm.png?raw=true)
 
 Running the website in multiple browsers
-!["Running the website in multiple browsers"](https://github.com/sjs5953/tweeter/blob/master/docs/errormessage2.png?raw=true)
+!["Running the website in multiple browsers"](https://github.com/sjs5953/scheduler/blob/master/docs/Running%202%20browsers.png?raw=true)
 
 Supports live update of changes made in the other browser
-!["Supports live update of changes made in the other browser"](https://github.com/sjs5953/tweeter/blob/master/docs/arrow%20up.png?raw=true)
+!["Supports live update of changes made in the other browser"](https://github.com/sjs5953/scheduler/blob/master/docs/Reflected%20on%20different%20page.png?raw=true)
 
 Error messages which is shown without making any changes to the database
-!["Error messages which is shown without making any changes to the database"](https://github.com/sjs5953/tweeter/blob/master/docs/arrow%20up.png?raw=true)
+!["Error messages which is shown without making any changes to the database"](https://github.com/sjs5953/scheduler/blob/master/docs/Error%20message.png?raw=true)
