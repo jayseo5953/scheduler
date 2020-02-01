@@ -11,8 +11,8 @@ export default function reducer(state, action) {
       
       return { ...state, days: action.days, appointments: action.appointments, interviewers: action.interviewers }
 
-    // case 'SET_DAY' :
-    //   return {...state, day: action.day}
+    case 'SET_DAY' :
+      return {...state, day: action.day}
 
     case 'SET_INTERVIEW' :
       // Updating the appointments
