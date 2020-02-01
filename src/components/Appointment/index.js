@@ -74,6 +74,7 @@ export default function Appointment(props) {
     }
   }, [props.interview, mode, transition]);
 
+  
   return (
     <article data-testid="appointment" className="appointment">
       <Header time={props.time} />
